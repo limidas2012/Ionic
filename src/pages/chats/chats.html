@@ -1,0 +1,46 @@
+<ion-header class="bg-theme">
+    <ion-navbar>
+        <ion-title class="text-center" text-uppercase>
+            <span>{{"chats" | translate}}</span>
+            <ion-icon name="md-search" class="text-white end" (click)="enableSearch()">
+            </ion-icon>
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-light">
+    <div class="search_box animate__animated animate__slideInDown" style="--animate-duration: .3s;">
+        <ion-row>
+            <ion-col col-12>
+                <ion-searchbar *ngIf="searchEnabled" (ionInput)="getItems($event)" placeholder="{{'search_chat' | translate}}"></ion-searchbar>
+            </ion-col>
+        </ion-row>
+    </div>
+    <div class="empty-view animate__animated animate__zoomIn" style="--animate-duration: .2s;" *ngIf="(!chats || !chats.length)">
+        <div style="text-align:center">
+            <img src="assets/imgs/ic_nochat.png" alt="no offers" />
+            <span style="color:#9E9E9E; font-weight:bold;">
+                {{'empty_chats' | translate}}
+            </span>
+        </div>
+    </div>
+    <ion-item class="animate__animated animate__fadeInUp" *ngFor="let chat of chats" (click)="chatscreen(chat)">
+        <ion-avatar class="center_img" item-start>
+            <img *ngIf="chat.chatImage && chat.chatImage.length" data-src="{{chat.chatImage}}" class="crop_img">
+            <img *ngIf="!chat.chatImage || !chat.chatImage.length" src="assets/imgs/empty_dp.png" class="crop_img">
+            <ion-badge *ngIf="!chat.isRead" color="danger"></ion-badge>
+        </ion-avatar>
+        <h2 class="text-theme">{{chat.chatName}}</h2>
+        <p>{{chat.lastMessage}}</p>
+        <ion-note item-end>
+            <span class="time">{{chat.timeDiff}}</span>
+        </ion-note>
+    </ion-item>
+</ion-content>
+
+<div *ngIf="config.demoMode" class="buy-this-app-class">
+    <button ion-button class="button-size" style="background-color: #f8563a !important;" (click)="buyThisApp()" round>
+        <ion-icon name="md-cart" class="text-white"></ion-icon> &nbsp;
+        {{'buy_this_app' | translate}}
+    </button>
+</div>

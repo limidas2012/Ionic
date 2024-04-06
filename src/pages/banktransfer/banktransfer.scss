@@ -1,0 +1,64 @@
+page-banktransfer {
+	.header.bg-theme .toolbar-title {
+		text-transform: uppercase;
+	}
+
+	.banner {
+		padding: 32px 28px 32px 28px;
+
+		h2 {
+			margin: 0;
+			font-size: 1.6rem;
+			font-weight: 500;
+			padding-bottom: 2px;
+		}
+
+		h1 {
+			margin: 0;
+			font-weight: 600;
+			font-size: 3.8rem;
+			padding-top: 4px;
+		}
+	}
+
+	.list {
+		h2 {
+			margin: 0;
+			font-size: 1.6rem;
+			font-weight: 500;
+			padding-bottom: 16px;
+		}
+
+		&.form {
+			padding-top: 28px;
+			border-radius: 0;
+			margin: 0 auto;
+			width: calc(100% - 61px);
+			background: none;
+			margin-bottom: -10px;
+
+			.form_container {
+				border-radius: 10px;
+				overflow: hidden;
+
+			}
+
+			.item {
+				background: $bg-light !important;
+				  .item-inner .input-wrapper .label{
+					margin: 0!important;
+				}
+			}
+		}
+	}
+
+	.footer {
+		padding-bottom: 25px;
+
+		.btn {
+			margin: 0 auto;
+			width: calc(100% - 61px);
+			font-weight: 500;
+		}
+	}
+}

@@ -1,0 +1,33 @@
+<ion-header class="bg-theme">
+    <ion-navbar>
+        <ion-title text-uppercase>{{"verify_me" | translate}}
+            <!--           <ion-icon name="md-search" class="text-white" style="margin-left: auto;float: right;"></ion-icon>-->
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding-right padding-left>
+    <p class="animate__animated animate__fadeInUp" text-center padding-top margin-top>{{"upload_text" | translate}}</p>
+    <h2 class="animate__animated animate__fadeInUp" text-center>{{"licence" | translate}}</h2>
+
+    <ion-row class="animate__animated animate__fadeInUp">
+        <ion-col col-4 text-center class="animate__animated animate__fadeInUp">
+            <img src="assets/imgs/v2.png">
+        </ion-col>
+        <ion-col col-4 text-center class="animate__animated animate__fadeInUp">
+            <img src="assets/imgs/v3.png">
+        </ion-col>
+        <ion-col col-4 text-center class="animate__animated animate__fadeInUp">
+            <img src="assets/imgs/v4.png">
+        </ion-col>
+    </ion-row>
+
+    <div text-center class="verifiy animate__animated animate__zoomIn" style="--animate-duration: .3s;">
+        <img src="assets/imgs/v1.png">
+    </div>
+    <p padding-top class="btn-box animate__animated animate__fadeInUp" style="--animate-duration: .4s;">
+        <button class="btn text-white bg-theme rounded" style="width: 80%;" (click)="pickPicker()">
+            {{"upload_btn" | translate}}
+        </button>
+    </p>
+</ion-content>

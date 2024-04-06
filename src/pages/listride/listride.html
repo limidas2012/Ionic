@@ -1,0 +1,104 @@
+<ion-header class="bg-theme">
+    <ion-navbar>
+        <ion-title text-uppercase>{{"ride_requests" | translate}}
+            <span class="end" text-capitalize text-end item-end float-end style="color:white" (click)="rideInfo()">
+                <ion-icon name="md-car" class="text-white" text-start></ion-icon>
+                {{createRideTitle}}
+            </span>
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content class="bg-light">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="{{'pull_refresh' | translate}}"
+            refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <div class="empty-view animate__animated animate__zoomIn" style="--animate-duration: .2s;"
+        *ngIf="!loadingShown && (!toShow || !toShow.length)">
+        <div style="text-align:center">
+            <img src="assets/imgs/empty_appointment.png" alt="no offers" />
+            <span style="color:#9E9E9E; font-weight:bold;">{{'no_rides_to_show' | translate}}</span>
+        </div>
+    </div>
+
+    <ion-list>
+        <ion-card class="animate__animated animate__fadeInUp" *ngFor="let ap of toShow; let i = index">
+            <ion-item class="animate__animated animate__fadeInUp" style="--animate-duration: .25s;"
+                (click)="userDetail(ap.user)">
+                <ion-avatar class="center_img" item-start>
+                    <img *ngIf="ap.user && ap.user.image_url" data-src="{{ap.user.image_url}}" class="crop_img">
+                    <img *ngIf="!ap.user || !ap.user || !ap.user.image_url" src="assets/imgs/empty_dp.png"
+                        class="crop_img">
+                </ion-avatar>
+                <div class="name">
+                    <h2 class="d-flex">{{ap.user.name}}
+                        <span class="end">{{currency}} {{ap.price}}</span>
+                    </h2>
+                    <!--
+					<p *ngIf="ap.user.profession">{{ap.user.profession}}</p>
+					<p *ngIf="!ap.user.profession">&nbsp;&nbsp;</p>
+-->
+                    <p class="d-flex">
+                        <span class="rating_icons">
+                            <ion-icon name="ios-star" [ngClass]="(ap.user.ratings >= 1) ? 'text-yellow' : ''">
+                            </ion-icon>
+                            <ion-icon name="ios-star" [ngClass]="(ap.user.ratings >= 2) ? 'text-yellow' : ''">
+                            </ion-icon>
+                            <ion-icon name="ios-star" [ngClass]="(ap.user.ratings >= 3) ? 'text-yellow' : ''">
+                            </ion-icon>
+                            <ion-icon name="ios-star" [ngClass]="(ap.user.ratings >= 4) ? 'text-yellow' : ''">
+                            </ion-icon>
+                            <ion-icon name="ios-star" [ngClass]="(ap.user.ratings >= 5) ? 'text-yellow' : ''">
+                            </ion-icon>
+                        </span>
+                        &nbsp; ({{ap.user.ratingscount}} {{"reviews" | translate}})
+
+                        <span class="end">
+                            {{ap.seats}} {{"seats" | translate}}
+                        </span>
+                    </p>
+                </div>
+            </ion-item>
+            <ion-card-content>
+                <div class="ride-detail" (click)="rideMap(ap)">
+                    <p class="animate__animated animate__fadeInUp">
+                        <span class="icon-location bg-theme"></span>{{ap.address_from}}
+                    </p>
+                    <p class="animate__animated animate__fadeInUp">
+                        <span class="icon-location bg-yellow"></span>{{ap.address_to}}
+                    </p>
+                </div>
+                <ion-row class="center-align animate__animated animate__fadeInUp" style="--animate-duration: .3s;">
+                    <ion-col col-6 class="detail-text text-theme">
+                        {{ap.ride_on_time}}, {{ap.ride_on_date}}
+                    </ion-col>
+
+                    <!--
+					<ion-col col-3 class="detail-text text-theme" text-center>
+						{{ap.provider.seats}} {{"seats" | translate}}
+					</ion-col>
+-->
+                    <!--
+					<ion-col col-6 class="detail-text" style="color: #f00;" text-center (click)="updateJobStatus('rejected', i)">
+						{{"reject" | translate}}
+					</ion-col>
+-->
+                    <ion-col no-padding class="d-flex" center text-center col-6 text-right style="margin-left: auto;">
+                        <button class="btn bg-theme reject rounded full text-white"
+                            (click)="updateJobStatus('rejected', i)">{{"reject" | translate}}</button>
+
+                        <button class="btn bg-theme rounded full text-white"
+                            (click)="updateJobStatus('accepted', i)">{{"accept" | translate}}</button>
+                    </ion-col>
+                </ion-row>
+            </ion-card-content>
+        </ion-card>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

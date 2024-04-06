@@ -1,0 +1,24 @@
+<ion-header>
+	<ion-navbar>
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>{{'change_language' | translate}}</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content class="bg-light">
+	<ion-list no-lines radio-group [(ngModel)]="defaultLanguageCode" required>
+		<p class="text-light animate__animated animate__fadeInUp" padding>{{"choose_your_preffered_language" | translate}}</p>
+		<ion-item class="animate__animated animate__fadeInUp" *ngFor="let language of config.availableLanguages" (click)="onLanguageClick(language)">
+			<ion-label>{{language.name}}</ion-label>
+			<ion-radio value="{{language.code}}" item-end></ion-radio>
+		</ion-item>
+	</ion-list>
+</ion-content>
+
+<ion-footer no-border class="animate__animated animate__fadeInUp" style="--animate-duration: .4s;">
+	<button ion-button full no-margin class="btn" (click)="languageConfirm()">
+		{{'continue' | translate}}
+	</button>
+</ion-footer>

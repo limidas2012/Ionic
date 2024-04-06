@@ -1,0 +1,93 @@
+page-otp {
+    .login {
+        width: 100%;
+        padding: 38px;
+        padding-bottom: 0;
+
+    }
+
+    ion-scroll {
+        height: 355px;
+    }
+
+    .logo {
+        position: relative;
+        text-align: center;
+        height: 144px;
+        margin-top: 30px;
+
+
+        img {
+
+            width: 144px;
+            height: 144px;
+
+        }
+    }
+
+    .footer {
+        min-height: 56%;
+        background: $white-color;
+
+        p {
+            margin: 0;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 44px;
+        }
+
+        .form {
+            margin-bottom: 18px;
+            border-radius: 5px;
+
+            .list {
+                margin: 0;
+
+                .item {
+                    .item-inner .input-wrapper ion-input {
+                        text-align: center;
+                        font-size: 1.7rem;
+                        font-weight: 500;
+
+                        .text-input {
+                            letter-spacing: 3px;
+                            text-align: center !important;
+                        }
+
+                        ::-webkit-input-placeholder {
+                            letter-spacing: 0;
+                            font-size: 1.4rem;
+                        }
+
+                        ::-moz-placeholder {
+                            letter-spacing: 0;
+                            font-size: 1.4rem;
+                        }
+
+                        :-ms-input-placeholder {
+                            letter-spacing: 0;
+                            font-size: 1.4rem;
+                        }
+
+                        :-moz-placeholder {
+                            letter-spacing: 0;
+                            font-size: 1.4rem;
+                        }
+
+
+                    }
+                }
+            }
+        }
+
+        .btn {
+
+            border-radius: 5px;
+        }
+
+        p {
+            margin-top: 20px;
+        }
+    }
+}

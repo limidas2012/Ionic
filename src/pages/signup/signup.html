@@ -1,0 +1,83 @@
+<ion-header class="bg-transparent">
+    <ion-navbar>
+        <ion-title text-uppercase><span class="text-white">{{"signup" | translate}}</span></ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+
+<ion-content class="bg-background-img">
+    <div class="logo">
+        <img src="assets/imgs/logo.png" alt="logo" class="animate__animated animate__zoomIn"
+            style="--animate-duration: .3s !important;">
+    </div>
+</ion-content>
+<ion-footer no-border>
+    <ion-scroll scrollY="true">
+        <div class="bg-white login">
+            <div class="">
+                <ion-row class=" animate__animated animate__fadeInUp">
+                    <ion-col class="click-img" (click)="askPicker()">
+                        <div class="form">
+                            <ion-icon *ngIf="!signUpRequest.image_url || !signUpRequest.image_url.length" name="camera">
+                            </ion-icon>
+                            <img *ngIf="signUpRequest.image_url && signUpRequest.image_url.length"
+                                style='height: 100%; width: 100%; object-fit: contain'
+                                data-src="{{signUpRequest.image_url}}">
+                        </div>
+                    </ion-col>
+                    <ion-col class="name-fild">
+                        <ion-list class="form" style="margin-bottom: 0">
+                            <ion-item class="animate__animated animate__fadeInUp" (click)="focusFName()">
+                                <ion-label>{{"f_name" | translate}}</ion-label>
+                                <ion-input #inputfname type="text" (keyup.enter)="focusLName()" [(ngModel)]="firstName"
+                                    text-right></ion-input>
+                            </ion-item>
+                            <ion-item class="animate__animated animate__fadeInUp" (click)="focusLName()">
+                                <ion-label>{{"l_name" | translate}}</ion-label>
+                                <ion-input #inputlname type="text" [(ngModel)]="lastName"
+                                    (keyup.enter)="focusCountrySelector()" text-right></ion-input>
+                            </ion-item>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+                <ion-list class="form  animate__animated animate__fadeInUp">
+                    <ion-item class="animate__animated animate__fadeInUp">
+                        <ion-label item-start>{{"select_country" | translate}}</ion-label>
+                        <ion-select [id]="'myCountrySelector'" text-end [(ngModel)]="countryCode"
+                            cancelText="{{'cancel' | translate}}" okText="{{'okay' | translate}}" multiple="false"
+                            (ionChange)="changeHint()">
+                            <ion-option [value]="country.callingCodes[0]" *ngFor="let country of countries">
+                                {{country.name}}
+                            </ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item class="animate__animated animate__fadeInUp" (click)="focusPhone()">
+                        <ion-label>{{phoneNumberHint}}</ion-label>
+                        <ion-input #inputphone type="tel" (keyup.enter)="focusEmail()" [(ngModel)]="phoneNumber"
+                            text-right></ion-input>
+                    </ion-item>
+                    <ion-item class="animate__animated animate__fadeInUp" (click)="focusEmail()">
+                        <ion-label>{{"email" | translate}}</ion-label>
+                        <ion-input #inputemail type="email" (keyup.enter)="validateSignupForm()"
+                            [(ngModel)]="signUpRequest.email" text-right></ion-input>
+                    </ion-item>
+                </ion-list>
+                <ion-item class="term-check">
+                    <ion-checkbox [(ngModel)]="acceptPrivacyPolicy" color="primary" checked="true" item-start></ion-checkbox>
+                    <ion-label item-end><small>Accept the <a target="_blank" href="https://quickcaronline.com/condiciones-generales-de-uso/">terms and conditions</a></small></ion-label>
+                  </ion-item>
+                <button ion-button full class="bg-theme text-white btn rounded animate__animated animate__fadeInUp"
+                    (click)="validateSignupForm()" [disabled]="!acceptPrivacyPolicy">
+                    {{"signup" | translate}} {{"now" | translate}}
+                </button>
+                <p text-center class="animate__animated animate__fadeInUp">
+                    {{"already_aaccount" | translate}}
+                    <strong class="text-theme" (click)="login()" text-capitalize>
+                        {{"sign_in" | translate}}
+                    </strong>
+                </p>
+            </div>
+        </div>
+    </ion-scroll>
+</ion-footer>

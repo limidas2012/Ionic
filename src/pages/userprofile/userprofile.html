@@ -1,0 +1,137 @@
+<ion-header class="bg-theme">
+    <ion-navbar>
+        <ion-title>{{"customer_profile" | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-light">
+    <ion-list no-lines class="profile">
+        <ion-item>
+            <ion-avatar item-start class="center_img">
+                <img *ngIf="user && user.image_url" data-src="{{user.image_url}}" class="crop_img">
+                <img *ngIf="!user || !user || !user.image_url" src="assets/imgs/empty_dp.png" class="crop_img">
+            </ion-avatar>
+            <div class="name">
+                <h2>{{user.name}}</h2>
+                <!--				<p *ngIf="user.profession">{{user.profession}}</p>-->
+                <p class="d-flex">
+                    <span>
+                        <ion-icon [ngClass]="(user.ratings >= 1) ? 'text-yellow' : ''" name="ios-star"></ion-icon>
+                        <ion-icon [ngClass]="(user.ratings >= 2) ? 'text-yellow' : ''" name="ios-star"></ion-icon>
+                        <ion-icon [ngClass]="(user.ratings >= 3) ? 'text-yellow' : ''" name="ios-star"></ion-icon>
+                        <ion-icon [ngClass]="(user.ratings >= 4) ? 'text-yellow' : ''" name="ios-star"></ion-icon>
+                        <ion-icon [ngClass]="(user.ratings >= 5) ? 'text-yellow' : ''" name="ios-star"></ion-icon>
+                    </span>
+                    &nbsp;
+                    &nbsp;
+                    ({{user.ratingscount}} {{"reviews" | translate}})
+                </p>
+
+            </div>
+            <!--
+			<div class="more">
+				<p text-end>({{user.ratingscount}} {{"reviews" | translate}})</p>
+			</div>
+-->
+        </ion-item>
+        <div class="tabs bg-white">
+            <ion-segment [(ngModel)]="rideprofile">
+                <ion-segment-button value="about">
+                    {{"about" | translate}}
+                </ion-segment-button>
+                <ion-segment-button value="reviews">
+                    {{"reviews" | translate}}
+                </ion-segment-button>
+            </ion-segment>
+        </div>
+    </ion-list>
+
+    <div [ngSwitch]="rideprofile">
+        <ion-list *ngSwitchCase="'about'">
+            <div class="bg-white about info animate__animated animate__fadeInUp">
+                <p class="text-theme heading animate__animated animate__fadeInUp">{{"personal" | translate}}</p>
+                <ion-list no-lines class="form-list">
+                    <ion-item class="animate__animated animate__fadeInUp">
+                        <ion-label floating>{{"phone" |translate}}</ion-label>
+                        <ion-input value="{{user.mobile_number}}" readonly></ion-input>
+                    </ion-item>
+                    <ion-item class="animate__animated animate__fadeInUp">
+                        <ion-label floating>{{"email" | translate}}</ion-label>
+                        <ion-input value="{{user.email}}" readonly></ion-input>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </ion-list>
+        
+        <ion-list *ngSwitchCase="'reviews'">
+            <div class="empty-view animate__animated animate__zoomIn" style="--animate-duration: .2s;" *ngIf="!isLoading && (!reviews || !reviews.length)">
+                <div style="text-align:center">
+                    <img src="assets/imgs/empty_reviews.png" alt="no offers" />
+                    <span style="color:#9E9E9E; font-weight:bold;">{{'no_reviews_to_show' | translate}}</span>
+                </div>
+            </div>
+            <div *ngIf="rating && reviews && reviews.length" class="bg-white" padding style="margin-bottom: 4px;">
+                <div class="rating-box">
+                    <p class="animate__animated animate__fadeInUp">
+                        <span class="text-1">5<ion-icon name="md-star"></ion-icon></span>
+                        <span class="rate-bar">
+                            <span class="bg-theme" [style.width]="rating.summary[4].percent+'%'"></span>
+                        </span>
+                        <span class="text-2">{{rating.summary[4].total}}</span>
+                    </p>
+                    <p class="animate__animated animate__fadeInUp">
+                        <span class="text-1">4<ion-icon name="md-star"></ion-icon></span>
+                        <span class="rate-bar">
+                            <span class="bg-theme" [style.width]="rating.summary[3].percent+'%'"></span>
+                        </span>
+                        <span class="text-2">{{rating.summary[3].total}}</span>
+                    </p>
+                    <p class="animate__animated animate__fadeInUp">
+                        <span class="text-1">3<ion-icon name="md-star"></ion-icon></span>
+                        <span class="rate-bar">
+                            <span class="bg-theme" [style.width]="rating.summary[2].percent+'%'"></span>
+                        </span>
+                        <span class="text-2">{{rating.summary[2].total}}</span>
+                    </p>
+                    <p class="animate__animated animate__fadeInUp">
+                        <span class="text-1">2<ion-icon name="md-star"></ion-icon></span>
+                        <span class="rate-bar">
+                            <span class="bg-theme" [style.width]="rating.summary[1].percent+'%'"></span>
+                        </span>
+                        <span class="text-2">{{rating.summary[1].total}}</span>
+                    </p>
+                    <p class="animate__animated animate__fadeInUp">
+                        <span class="text-1">1<ion-icon name="md-star"></ion-icon></span>
+                        <span class="rate-bar">
+                            <span class="bg-theme" [style.width]="rating.summary[0].percent+'%'"></span>
+                        </span>
+                        <span class="text-2">{{rating.summary[0].total}}</span>
+                    </p>
+                </div>
+            </div>
+            <ion-card class="review animate__animated animate__fadeInUp" *ngFor="let review of reviews">
+                <ion-item>
+                    <ion-avatar class="center_img" item-start>
+                        <img *ngIf="review.rating_from && review.rating_from.image_url" data-src="{{review.rating_from.image_url}}" class="crop_img">
+                        <img *ngIf="!review.rating_from || !review.rating_from.image_url" src="assets/imgs/empty_dp.png" class="crop_img">
+                    </ion-avatar>
+                    <h2 *ngIf="review.rating_from">{{review.rating_from.name}}</h2>
+                    <p>
+                        <ion-icon name="ios-star" [ngClass]="(review.rating >= 1) ? 'text-yellow' : ''"></ion-icon>
+                        <ion-icon name="ios-star" [ngClass]="(review.rating >= 2) ? 'text-yellow' : ''"></ion-icon>
+                        <ion-icon name="ios-star" [ngClass]="(review.rating >= 3) ? 'text-yellow' : ''"></ion-icon>
+                        <ion-icon name="ios-star" [ngClass]="(review.rating >= 4) ? 'text-yellow' : ''"></ion-icon>
+                        <ion-icon name="ios-star" [ngClass]="(review.rating >= 5) ? 'text-yellow' : ''"></ion-icon>
+                    </p>
+                    <ion-note item-end>{{review.created_at}}</ion-note>
+                </ion-item>
+                <ion-card-content>
+                    <div class="detail">
+                        <p>{{review.review}}</p>
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        </ion-list>
+    </div>
+    <!--  <div class="space">&nbsp;</div>-->
+</ion-content>

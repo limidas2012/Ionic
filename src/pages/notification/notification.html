@@ -1,0 +1,29 @@
+<ion-header class="bg-theme">
+    <ion-navbar>
+        <ion-title text-uppercase>{{"notification" | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-light">
+    <div class="empty-view animate__animated animate__zoomIn" style="--animate-duration: .2s;" *ngIf="(!notifications || !notifications.length)">
+        <div style="text-align:center">
+            <img src="assets/imgs/empty_notification.png" alt="no offers" />
+            <span style="color:#9E9E9E; font-weight:bold;">
+                {{'empty_notifications' | translate}}
+            </span>
+        </div>
+    </div>
+
+    <ion-list no-lines>
+        <ion-item class="animate__animated animate__fadeInUp" *ngFor="let noti of notifications">
+            <ion-label>
+                <h2 class="d-flex">
+                    <span class="item_title {{noti.colorclass}}">{{noti.title}}</span>
+                    <span class="end" text-end>{{noti.time}}</span>
+                </h2>
+                <p>{{noti.detail}}</p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+    
+</ion-content>

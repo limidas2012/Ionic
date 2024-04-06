@@ -1,0 +1,156 @@
+<ion-header class="bg-theme">
+    <ion-navbar>
+        <ion-title class="text-center">
+            {{"passengers" | translate}}
+        </ion-title>
+    </ion-navbar>
+    <div padding-left padding-right>
+        <ion-segment [(ngModel)]="ride" (ionChange)="onSegmentChange()">
+            <ion-segment-button value="Pending">
+                {{"pending" | translate}}
+            </ion-segment-button>
+            <ion-segment-button value="History">
+                {{"past" | translate}}
+            </ion-segment-button>
+        </ion-segment>
+    </div>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="bg-light">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="{{'pull_refresh' | translate}}"
+            refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <div class="empty-view animate__animated animate__zoomIn" style="--animate-duration: .2s;"
+        *ngIf="(!toShow || !toShow.length)">
+        <div style="text-align:center">
+            <img *ngIf="!isLoading" src="assets/imgs/empty_appointment.png" alt="no offers" />
+            <ion-spinner *ngIf="isLoading"></ion-spinner>
+            <span style="color:#9E9E9E; font-weight:bold;">{{ (isLoading ? 'loading' : 'no_rides_to_show') |
+                translate}}</span>
+        </div>
+    </div>
+    <div>
+        <ion-list>
+            <ion-card class="animate__animated animate__fadeInUp" *ngFor="let ap of toShow; let i = index">
+                <div *ngIf="ap.status == 'pending'">
+                    <ion-item class="animate__animated animate__fadeInUp" style="--animate-duration: .25s;"
+                        (click)="userDetail(ap.user)">
+                        <ion-avatar class="center_img" item-start>
+                            <img *ngIf="ap.user && ap.user.image_url" data-src="{{ap.user.image_url}}" class="crop_img">
+                            <img *ngIf="!ap.user || !ap.user || !ap.user.image_url" src="assets/imgs/empty_dp.png"
+                                class="crop_img">
+                        </ion-avatar>
+                        <div class="name">
+                            <h2 class="d-flex">{{ap.user.name}}
+                                <span class="end">{{currency}} {{ap.price}}</span>
+                            </h2>
+                            <p class="d-flex">
+                                <span class="rating_icons">
+                                    <ion-icon name="ios-star" [ngClass]="(ap.user.ratings >= 1) ? 'text-yellow' : ''">
+                                    </ion-icon>
+                                    <ion-icon name="ios-star" [ngClass]="(ap.user.ratings >= 2) ? 'text-yellow' : ''">
+                                    </ion-icon>
+                                    <ion-icon name="ios-star" [ngClass]="(ap.user.ratings >= 3) ? 'text-yellow' : ''">
+                                    </ion-icon>
+                                    <ion-icon name="ios-star" [ngClass]="(ap.user.ratings >= 4) ? 'text-yellow' : ''">
+                                    </ion-icon>
+                                    <ion-icon name="ios-star" [ngClass]="(ap.user.ratings >= 5) ? 'text-yellow' : ''">
+                                    </ion-icon>
+                                </span> &nbsp; ({{ap.user.ratingscount}} {{"reviews" | translate}})
+
+                                <span class="end">
+                                    {{ap.seats}} {{"seats" | translate}}
+                                </span>
+                            </p>
+                        </div>
+                    </ion-item>
+                    <ion-card-content>
+                        <div class="ride-detail" (click)="rideMap(ap)">
+                            <p class="animate__animated animate__fadeInUp">
+                                <span class="icon-location bg-theme"></span>{{ap.address_from}}
+                            </p>
+                            <p class="animate__animated animate__fadeInUp">
+                                <span class="icon-location bg-yellow"></span>{{ap.address_to}}
+                            </p>
+                        </div>
+                        <ion-row class="center-align animate__animated animate__fadeInUp"
+                            style="--animate-duration: .3s;">
+                            <ion-col col-6 class="detail-text text-theme">
+                                {{ap.ride_on_time}}, {{ap.ride_on_date}}
+                            </ion-col>
+
+                            <ion-col no-padding class="d-flex" center text-center col-6 text-right
+                                style="margin-left: auto;">
+                                <button class="btn bg-theme reject rounded full text-white end"
+                                    (click)="updateJobStatus('rejected', i)">{{"reject" | translate}}</button>
+
+                                <button class="btn bg-theme rounded full text-white end"
+                                    (click)="updateJobStatus('accepted', i)">{{"accept" | translate}}</button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-card-content>
+                </div>
+
+                <div *ngIf="ap.status != 'pending'">
+                    <ion-item class="animate__animated animate__fadeInUp" style="--animate-duration: .25s;"
+                        (click)="userDetail(ap.user)">
+                        <ion-avatar item-start class="center_img">
+                            <img *ngIf="ap.user && ap.user.image_url" data-src="{{ap.user.image_url}}" class="crop_img">
+                            <img *ngIf="!ap.user || !ap.user || !ap.user.image_url" src="assets/imgs/empty_dp.png"
+                                class="crop_img">
+                        </ion-avatar>
+                        <div class="name">
+                            <h2 class="d-flex">{{ap.user.name}} <span class="end">{{currency}} {{ap.price}}</span></h2>
+                            <p *ngIf="ap.user.profession">{{ap.user.profession}}</p>
+                        </div>
+                    </ion-item>
+                    <ion-card-content>
+                        <div class="ride-detail" (click)="rideMap(ap)">
+                            <p class="animate__animated animate__fadeInUp" style="--animate-duration: .3s;">
+                                <span class="icon-location bg-theme"></span> {{ap.address_from}}
+                            </p>
+                            <p class="animate__animated animate__fadeInUp" style="--animate-duration: .3s;">
+                                <span class="icon-location bg-yellow"></span> {{ap.address_to}}
+                            </p>
+                        </div>
+                        <ion-row class="animate__animated animate__fadeInUp" style="--animate-duration: .3s;">
+                            <ion-col col-6 class="detail-text">
+                                <h2> {{ap.ride_on_time}}, {{ap.ride_on_date}}<br>
+                                    <span>{{ap.seats}} {{"seats" | translate}}</span>
+                                </h2>
+                            </ion-col>
+
+                            <ion-col col-6 class="d-flex">
+                                <button
+                                    *ngIf="ride == 'Pending' && !(ap.status == 'complete' || ap.status == 'rejected' || ap.status == 'cancelled')"
+                                    class="btn end bg-theme rounded full text-white icon-start" (click)="chatting(ap)">
+                                    {{"message" | translate}}
+                                </button>
+
+                                <button *ngIf="ap.canRate" class="btn end bg-yellow rounded full text-white"
+                                    (click)="raterider(ap)">
+                                    {{"rate_now" | translate}}
+                                </button>
+
+                                <button *ngIf="!ap.canRate" class="btn end bg-theme rounded full text-white"
+                                    (click)="updateJobStatus(null, i)">
+                                    {{ (ap.status + "_action") | translate}}
+                                </button>
+
+                            </ion-col>
+                        </ion-row>
+                    </ion-card-content>
+                </div>
+            </ion-card>
+        </ion-list>
+    </div>
+
+    <ion-fab right bottom (click)="rideInfo()" class="animate__animated animate__zoomIn"
+        style="--animate-duration: .2s;">
+        <button ion-fab>
+            <ion-icon class="zmdi zmdi-edit"></ion-icon>
+        </button>
+    </ion-fab>
+</ion-content>

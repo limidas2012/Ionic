@@ -1,0 +1,35 @@
+<ion-content padding>
+    <h1 text-right>
+        <ion-icon class="text-white" name="md-close" (click)="dismiss()"></ion-icon>
+    </h1>
+      <ion-card class="animate__animated animate__zoomIn" style="--animate-duration: .3s;">
+        <div class="code_logo">
+            <img src="assets/imgs/menu-bg.png" />
+        </div>
+        <ion-card-content>
+            <div padding-top padding-right padding-left>
+                <ion-card-title class="text-theme animate__animated animate__fadeInUp" style="--animate-duration: .35s;">
+                    {{"code_text1" | translate}}
+                </ion-card-title>
+                <!-- <h5 padding-top>
+                    {{"code_text2" | translate}} <br>
+                    {{"code_text3" | translate}}
+                </h5> -->
+                 <ion-list class="form animate__animated animate__fadeInUp" style="--animate-duration: .4s;">
+                    <ion-item class="bg-light">
+                        <ion-input type="text" placeholder="{{'referral_placeholder' | translate}}" [(ngModel)]="referralCode" class="text-light">
+                        </ion-input>
+                    </ion-item>
+                </ion-list>
+                  <p class="animate__animated animate__fadeInUp" style="--animate-duration: .45s;">
+                    <strong class="text-dark" (click)="dismiss()">
+                        {{"idnt_hv" | translate}}
+                    </strong>
+                    <strong class="text-theme" style="float: right;" (click)="verifyReferral()">
+                        {{"continue" | translate}}
+                    </strong>
+                </p>
+            </div>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

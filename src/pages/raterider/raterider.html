@@ -1,0 +1,62 @@
+<ion-header class="bg-theme">
+    <ion-navbar>
+        <ion-title>{{"rate_user" | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-light">
+    <ion-card class="slip">
+        <div text-center>
+            <h4 class="text-dark animate__animated animate__fadeInUp">{{"rate_driver_text1" | translate}}</h4>
+            <!--<p class="text-light animate__animated animate__fadeInUp">{{ap.ride_on_time}}</p> -->
+            <h1 class="text-theme animate__animated animate__fadeInUp">{{currency}} {{ap.price}}</h1>
+            <h4 class="text-dark animate__animated animate__fadeInUp">{{"rate_driver_text2" | translate}}</h4>
+        </div>
+    </ion-card>
+    <ion-card class="rate">
+        <div text-center>
+            <p class="animate__animated animate__fadeInUp" style="padding-bottom: 10px;">{{"rate_driver_text4" |
+                translate}}</p>
+            <div class="driver">
+                <ion-item class="driver_details animate__animated animate__fadeInUp">
+                    <ion-avatar class="center_img" item-start style="border-radius: 50%;">
+                        <img *ngIf="ap.user && ap.user.image_url" data-src="{{ap.user.image_url}}" class="crop_img">
+                        <img *ngIf="!ap.user || !ap.user || !ap.user.image_url" src="assets/imgs/empty_dp.png"
+                            class="crop_img">
+                    </ion-avatar>
+                    <h2>{{ap.user.name}}</h2>
+                    <p *ngIf="ap.user.profession">{{ap.user.profession}}</p>
+                </ion-item>
+                <p class="icons animate__animated animate__fadeInUp">
+                    <ion-icon name="ios-star" [ngClass]="rateRequest.rating>=1 ? 'text-yellow' : ''"
+                        (click)="setRating(1)">
+                    </ion-icon>
+                    <ion-icon name="ios-star" [ngClass]="rateRequest.rating>=2 ? 'text-yellow' : ''"
+                        (click)="setRating(2)">
+                    </ion-icon>
+                    <ion-icon name="ios-star" [ngClass]="rateRequest.rating>=3 ? 'text-yellow' : ''"
+                        (click)="setRating(3)">
+                    </ion-icon>
+                    <ion-icon name="ios-star" [ngClass]="rateRequest.rating>=4 ? 'text-yellow' : ''"
+                        (click)="setRating(4)">
+                    </ion-icon>
+                    <ion-icon name="ios-star" [ngClass]="rateRequest.rating==5 ? 'text-yellow' : ''"
+                        (click)="setRating(5)">
+                    </ion-icon>
+                </p>
+                <div class="form animate__animated animate__fadeInUp">
+                    <ion-list no-lines>
+                        <ion-item>
+                            <ion-textarea type="text" rows="5" [(ngModel)]="rateRequest.review"
+                                placeholder="{{'leave_a_feedback' | translate}}"> </ion-textarea>
+                        </ion-item>
+                    </ion-list>
+                </div>
+                <button class="btn text-white bg-theme rounded animate__animated animate__fadeInUp"
+                    style="width: 100%; --animate-duration: .4s;" (click)="submitRating()">
+                    {{"submit_rating" | translate}}
+                </button>
+            </div>
+        </div>
+    </ion-card>
+</ion-content>

@@ -1,0 +1,69 @@
+<ion-header class="bg-theme">
+    <ion-navbar>
+        <ion-title class="text-center" text-uppercase>{{"my_wallet" | translate}}</ion-title>
+    </ion-navbar>
+    <div text-center padding>
+        <p class="animate__animated animate__fadeInUp">
+            <small class="text-white">
+                {{"total_balance" | translate}}
+            </small>
+        </p>
+        <h1 class="text-white animate__animated animate__fadeInUp">{{currency}} {{user.wallet.balance}}</h1>
+        <ion-row class="animate__animated animate__fadeInUp">
+            <ion-col>
+                <button class="btn text-white add_money rounded" (click)="addMoneyPage()">
+                    {{"add_money" | translate}}
+                </button>
+            </ion-col>
+            <ion-col>
+                <button class="btn text-theme send_money rounded" (click)="transferMoney()">
+                    {{"send_money" | translate}}
+                </button>
+            </ion-col>
+        </ion-row>
+    </div>
+</ion-header>
+
+<ion-content class="bg-light">
+    <ion-list>
+        <ion-card class="animate__animated animate__fadeInUp" *ngFor="let wh of walletHistory">
+            <ion-item>
+                <ion-avatar class="center_img" item-start>
+                    <img *ngIf="wh.ride && wh.ride.user.image_url" data-src="{{wh.ride.user.image_url}}"
+                        class="crop_img">
+                    <img *ngIf="!wh.ride || !wh.ride.user.image_url" src="assets/imgs/logo.png" class="crop_img">
+                </ion-avatar>
+                <div class="name">
+                    <h2>
+                        <span>{{wh.title}}</span>
+                        <span class="end">
+                            {{currency}}
+                            {{wh.amount}}
+                        </span>
+                    </h2>
+                    <h3>{{wh.created_at}}</h3>
+                    <p>
+                        <span>{{wh.description}}</span>
+                        <span *ngIf="wh.ride && wh.ride.user" class="end">{{wh.ride.user.name}}</span>
+                    </p>
+                </div>
+            </ion-item> 
+        </ion-card>
+    </ion-list>
+    <!--
+<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+</ion-infinite-scroll>
+-->
+
+    <div class="empty-view animate__animated animate__zoomIn" style="--animate-duration: .2s;"
+        *ngIf="!walletHistory || !walletHistory.length">
+        <div style="text-align:center">
+            <img *ngIf="!isLoading" src="assets/imgs/empty_notification.png" alt="no offers" />
+            <ion-spinner *ngIf="isLoading"></ion-spinner>
+            <span style="color:#9E9E9E; font-weight:bold;">
+                {{ (isLoading ? 'loading' : 'empty_wallet') | translate}}
+            </span>
+        </div>
+    </div>
+</ion-content>

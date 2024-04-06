@@ -1,0 +1,75 @@
+<ion-header class="bg-transparent">
+    <ion-navbar>
+        <ion-title><span class="text-white">{{"sign_in" | translate}}</span></ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-background-img">
+    <div class="logo">
+        <img src="assets/imgs/logo.png" alt="logo" class="animate__animated animate__zoomIn"
+            style="--animate-duration: .3s !important;">
+    </div>
+</ion-content>
+
+<ion-footer no-border>
+    <div class="bg-white login">
+        <div class="">
+            <div class="form">
+                <ion-list class="animate__animated animate__fadeInUp">
+                    <ion-item class="animate__animated animate__fadeInUp">
+                        <ion-label>Limi{{"select_country" | translate}}</ion-label>
+                        <ion-select [id]="'myCountrySelector'" text-end [(ngModel)]="countryCode" multiple="false"
+                            placeholder="" (ionChange)="changeHint()" cancelText="{{'cancel' | translate}}"
+                            okText="{{'okay' | translate}}">
+                            <ion-option [value]="country.callingCodes[0]" *ngFor="let country of countries">
+                                {{country.name}}
+                            </ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item class="animate__animated animate__fadeInUp" (click)="focusPhone()">
+                        <ion-label>{{phoneNumberHint}}</ion-label>
+                        <ion-input #inputphone type="tel" (keyup.enter)="requestSignIn()" [(ngModel)]="phoneNumber"
+                            text-right></ion-input>
+                    </ion-item>
+                </ion-list>
+            </div>
+
+            <ion-item class="term-check">
+                <ion-checkbox [(ngModel)]="acceptPrivacyPolicy" color="primary" checked="true" item-start></ion-checkbox>
+                <ion-label item-end><small>Accept the <a target="_blank" href="https://quickcaronline.com/condiciones-generales-de-uso/">terms and conditions</a></small></ion-label>
+              </ion-item>
+
+            <button ion-button full class="bg-theme text-white btn rounded animate__animated animate__fadeInUp"
+                (click)="requestSignIn()" [disabled]="!acceptPrivacyPolicy">
+                {{"login" | translate}}
+            </button>
+
+            <!-- <ion-row  class="animate__animated animate__fadeInUp">
+                <ion-col (click)="signup()">
+                    <small>
+                        {{"new_user" | translate}}
+                        <strong class="text-theme">{{"signup" | translate}}</strong>
+                    </small>
+                </ion-col>
+                <ion-col text-right (click)="passwordRecovery()">
+                    <small>
+                        {{"forgot" | translate}}
+                        <strong class="text-theme">{{"password" | translate}}?</strong>
+                    </small>
+                </ion-col>
+            </ion-row> -->
+
+<!--            <p style="padding-top: 8px;" text-center class="option-login animate__animated animate__fadeInUp">-->
+<!--                <span>{{"or_continue" | translate}}</span>-->
+<!--            </p>-->
+<!--            <ion-row class="animate__animated animate__fadeInUp">-->
+<!--                <ion-col>-->
+<!--                    <button ion-button full class="bg-white text-dark btn rounded small" (click)="signInGoogle()">-->
+<!--                        <img src="assets/imgs/google.png">-->
+<!--                        <span>Google&nbsp;&nbsp;</span>-->
+<!--                    </button>-->
+<!--                </ion-col>-->
+<!--            </ion-row>-->
+        </div>
+    </div>
+</ion-footer>

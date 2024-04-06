@@ -1,0 +1,239 @@
+page-myride {
+    .header .toolbar .title .toolbar-title {
+        display: block;
+        text-align: center;
+    }
+    p {
+        &.text-light {
+            padding: 10px 15px 0;
+            font-size: 1.2rem;
+        }
+    }
+    ion-segment {
+        border-radius: 0 !important;
+        .segment-button {
+            min-height: 40px;
+            line-height: 40px;
+            position: relative;
+            border-radius: 0 !important;
+            color: darken($theme-color, 20%) !important;
+            opacity: 1 !important;
+            font-size: 1.35rem !important;
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: 0 auto;
+                width: 0;
+                height: 3px;
+                background: $white-color;
+                transition: all 0.3s;
+            }
+            &.segment-activated {
+                color: $white-color !important;
+                &::after {
+                    width: calc(100% - 50px);
+                    transition: all 0.3s;
+                }
+            }
+        }
+    }
+    .card {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+        margin-top: 6px;
+        margin-bottom: 5px;
+        ion-item {
+            ion-avatar {
+                border-radius: 50%;
+            }
+            .name {
+                width: calc(100% - 0px);
+                display: block;
+                h2 {
+                    font-size: 1.3rem;
+                    font-weight: 600;
+                    ion-icon {
+                        margin-left: 5px;
+                    }
+                    span {
+                        &.end {
+                            color: $theme-color;
+                            font-size: 1.2rem;
+                        }
+                    }
+                }
+            }
+            .more {
+                width: 65px;
+                display: inline-block;
+                h2 {
+                    font-size: 1.4rem;
+                    font-weight: 600;
+                    color: $theme-color;
+                    display: flex;
+                    ion-icon {
+                        margin-left: 5px;
+                        font-size: 2rem;
+                        margin-left: auto;
+                        color: $theme-color;
+                    }
+                }
+            }
+            p {
+                font-size: 1.1rem;
+                color: $text-dark;
+                font-weight: 400;
+            }
+        }
+    }
+    ion-card-content {
+        padding-left: 30px !important;
+        position: relative;
+        .ride-detail {
+            position: relative;
+            margin: 10px 0;
+            p {
+                font-size: 1.2rem;
+                padding-left: 43px;
+                position: relative;
+                color: $text-dark;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 100%;
+                .icon-location {
+                    position: absolute;
+                    left: 0px;
+                    top: 0;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    display: inline-block;
+                    bottom: 0;
+                    margin: auto;
+                }
+            }
+            &::before {
+                content: "";
+                display: block;
+                width: 1px;
+                height: 20px;
+                background: $text-dark;
+                position: absolute;
+                left: 5px;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+            }
+        }
+        .detail-text {
+            // height: 4.5rem;
+            font-size: 1.1rem;
+            color: $theme-color;
+            text-transform: none;
+            h2 {
+                color: $theme-color;
+                font-size: 1.1rem;
+                font-weight: 600;
+                line-height: 16px;
+                // top: 13px;
+                position: relative;
+            }
+        }
+        .full.btn {
+            text-transform: capitalize;
+            letter-spacing: 0px;
+            font-weight: 400;
+            height: 35px;
+            font-size: 1.3rem;
+            min-width: 70px;
+            box-shadow: none !important;
+            .icon {
+                font-size: 2rem;
+            }
+        }
+        .status {
+            display: block;
+            width: 26px;
+            height: 100px;
+            position: absolute;
+            left: 0;
+            bottom: 8px;
+            img {
+                width: 100%;
+            }
+        }
+        .row {
+            align-items: center;
+            .col {
+                padding: 0;
+                .btn {
+                    // min-width: calc(50% - 6px);
+                    // //margin: 0 auto;
+                    // height: 27px;
+                    // line-height: 26px;
+                    &.clear {
+                        background: none;
+                        border: 1px solid $theme-color;
+                        color: $theme-color;
+                        padding: 0;
+                        ion-icon {
+                            font-size: 1.5rem;
+                            top: 2px;
+                            position: relative;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .col {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .empty-view {
+        width: 200px;
+        margin: auto;
+        height: 200px;
+        top: 10%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 10%;
+        img {
+            width: 100px;
+            margin: auto;
+        }
+        span {
+            display: block;
+            text-align: center;
+        }
+        button {
+            margin-top: 50px;
+            span {
+                display: unset !important;
+            }
+        }
+    }
+    ion-fab {
+        &[bottom] {
+            bottom: 22px;
+            right: 22px;
+        }
+        .fab {
+            background: $theme-color;
+            width: 50px;
+            height: 50px;
+            ion-icon {
+                font-size: 2rem;
+            }
+        }
+    }
+    .list {
+        padding-bottom: 60px;
+    }
+}

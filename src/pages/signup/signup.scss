@@ -1,0 +1,104 @@
+page-signup {
+  .login {
+    width: 100%;
+    padding: 25px;
+    padding-bottom: 0;
+  }
+
+  ion-scroll {
+    height: 420px;
+  }
+
+  .logo {
+    position: relative;
+    text-align: center;
+    height: 144px;
+    margin-top: 30px;
+
+    img {
+      width: 144px;
+      height: 144px;
+    }
+  }
+
+  .bg-background-img {
+    background-position-y: -100px;
+  }
+
+  .click-img {
+    padding-left: 0;
+    text-align: center;
+    position: relative;
+    max-width: 96px;
+    height: 96px;
+
+    .form {
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      ion-icon {
+        position: absolute;
+        font-size: 3rem;
+        color: #888;
+        width: 3rem;
+        height: 3rem;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+    }
+  }
+
+  .name-fild {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .item {
+    &.item-select {
+      padding: 0 16px;
+
+      .label {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 500;
+        color: lighten($text-dark, 20%);
+      }
+
+      .input-wrapper {
+        padding: 0;
+      }
+
+      ion-select {
+        padding: 0 !important;
+        max-width: unset;
+        width: 100%;
+
+        .select-icon {
+          display: none;
+        }
+
+        .select-text {
+          font-size: 1.2rem;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  p {
+    margin: 17px 0;
+    font-size: 1.3rem;
+    font-weight: 500;
+
+    strong {
+      text-transform: lowercase;
+    }
+  }
+  ion-item.term-check ion-label{
+    z-index: 10;
+}
+}

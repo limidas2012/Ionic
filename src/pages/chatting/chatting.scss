@@ -1,0 +1,107 @@
+page-chatting {
+    .chat-bg {
+        background: url(../assets/imgs/chatbg.jpg);
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+    }
+    .cb {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    .card {
+        width: fit-content;
+        max-width: 70%;
+        border-radius: 5px;
+        padding: 10px 10px 10px 10px;
+        margin: 0;
+        margin-top: 0;
+        margin-bottom: 13px;
+        box-shadow: none !important;
+        h2 {
+            padding-bottom: 8px;
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+        p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        &.send {
+            background: $theme-color;
+            margin-left: auto;
+            text-align: right;
+            h2 {
+                color: $white-color;
+            }
+            p {
+                color: $white-color;
+                text-align: right;
+            }
+        }
+        &.received {
+            background: $white-color;
+            margin-right: auto;
+        }
+        h2 {
+            color: darken($white-color, 100%);
+            font-weight: 400;
+        }
+        p {
+            color: darken($white-color, 30%);
+            text-align: left;
+        }
+    }
+    .fixed-bottom {
+        height: 56px;
+        background: $white-color;
+        padding-top: 2px;
+        .list {
+            padding: 0;
+            border-radius: 0;
+            margin: 0;
+            .item {
+                padding-left: 16px;
+                border: none !important;
+                box-shadow: none !important;
+                .item-inner {
+                    border: none !important;
+                    box-shadow: none !important;
+                }
+                textarea {
+                    margin: 0px;
+                    margin-top: 14px;
+                    width: 100%;
+                }
+            }
+            .text-input {
+                font-size: 1.2rem;
+            }
+            .circle-icon {
+                border: 1px solid #9e9e9e;
+                color: #9e9e9e;
+                border-radius: 50%;
+                width: 3rem;
+                height: 3rem;
+            }
+        }
+    }
+    .footer {
+        .toolbar {
+            padding: 0 !important;
+            height: unset;
+        }
+        .row {
+            align-items: center;
+            .col {
+                .icon {
+                    font-size: 2rem;
+                    line-height: 1.4;
+                    text-align: center !important;
+                }
+            }
+        }
+    }
+}

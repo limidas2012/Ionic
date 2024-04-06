@@ -1,0 +1,46 @@
+<ion-header class="bg-transparent">
+    <ion-navbar>
+        <ion-title text-uppercase> {{"verification" | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+<!--
+<ion-content class="bg-background-img">
+    <div class="logo">
+        <img src="assets/imgs/logo.png" alt="logo">
+    </div>
+</ion-content>
+-->
+
+<ion-content class="bg-background-img">
+    <div class="logo">
+        <img src="assets/imgs/logo.png" alt="logo" class="animate__animated animate__zoomIn" style="--animate-duration: .3s !important;">
+    </div>
+    <div id="recaptcha-container"></div>
+    <!--
+	<h1 text-center>
+		{{"verify_code" | translate}}
+	</h1>
+-->
+</ion-content>
+<ion-footer no-border>
+    <div class="bg-white login">
+        <p class="animate__animated animate__fadeInUp">Limi{{"verify_code_text" | translate}}<br>{{"sent2" | translate}} {{phoneNumberFull}}</p>
+        <div class="form animate__animated animate__fadeInUp">
+            <ion-list no-lines>
+                <ion-item>
+                    <ion-input type="number" placeholder="{{'enter_otp' | translate}}" [(ngModel)]="otp"></ion-input>
+                </ion-item>
+            </ion-list>
+        </div>
+        <button ion-button block full class="btn animate__animated animate__fadeInUp" (click)="verify()" >
+            {{"confirm" | translate}}
+        </button>
+        <p text-center class="d-flex animate__animated animate__fadeInUp">
+            {{"didnt_rcv_code" | translate}}
+            <strong (click)="sendOTP()" class="end">
+                {{"resend_nw" | translate}}
+            </strong>
+        </p>
+    </div>
+
+</ion-footer>
